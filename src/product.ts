@@ -1,5 +1,6 @@
 import { db } from "./db";
 import * as mysql from "mysql2/promise";
+import { RowDataPacket, FieldPacket } from "mysql2";
 
 export class Product {
   private title: string;
@@ -14,7 +15,7 @@ export class Product {
     this.userId = userId;
   }
 
-  async saveToDatabase() {
+  async addProduct() {
     const connection = await mysql.createConnection(db);
     try {
       await connection.execute(
@@ -43,6 +44,44 @@ export class Product {
       await connection.execute("DELETE FROM products WHERE id = ?", [
         this.userId,
       ]);
+    } finally {
+      await connection.end();
+    }
+  }
+
+  async viewProducts() {
+    let connection = await mysql.createConnection(db);
+    try {
+      let [products]: [RowDataPacket[], FieldPacket[]] = await connection.query(
+        "SELECT * FROM PRODUCTS WHERE user_id = ?",
+        [this.userId]
+      );
+      return products;
+    } finally {
+      await connection.end();
+    }
+  }
+
+  async getProductById() {
+    let connection = await mysql.createConnection(db);
+    try {
+      let [product]: [RowDataPacket[], FieldPacket[]] = await connection.query(
+        "SELECT * FROM PRODUCTS WHERE id = ?",
+        [this.userId]
+      );
+      return product;
+    } finally {
+      await connection.end();
+    }
+  }
+
+  async getAllProducts() {
+    let connection = await mysql.createConnection(db);
+    try {
+      let [products]: [RowDataPacket[], FieldPacket[]] = await connection.query(
+        "SELECT * FROM PRODUCTS"
+      );
+      return products;
     } finally {
       await connection.end();
     }

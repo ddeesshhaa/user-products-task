@@ -1,9 +1,4 @@
-let dotenv = require("dotenv");
-
-let result = dotenv.config();
-if (result.error) {
-  console.error(`error loading env ${result.error}`);
-}
+let dotenv = require("dotenv").config();
 
 export const {
   HOST,

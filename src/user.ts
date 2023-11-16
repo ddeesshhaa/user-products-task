@@ -18,7 +18,7 @@ export class User {
   async register() {
     const connection = await mysql.createConnection(db);
     try {
-      const [result, fields] = await connection.execute(
+      const [result] = await connection.execute(
         "INSERT INTO users (name,username, password) VALUES (?,?, ?)",
         [this.name, this.username, this.password]
       );

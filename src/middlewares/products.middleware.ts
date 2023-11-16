@@ -27,7 +27,7 @@ export const viewProducts = async (req: Request, res: Response) => {
     let products = await ins.viewProducts();
     res.status(201).json({ products });
   } catch (error: any) {
-    console.log(error);
+    res.status(500).json({ message: error.message || "Internal server error" });
   }
 };
 
@@ -49,7 +49,9 @@ export const editProduct = async (req: Request, res: Response) => {
     let p1 = new Product(newTitle, newImage, newPrice, productId);
     await p1.updateProduct();
     res.status(201).json("updated");
-  } catch (error) {}
+  } catch (error: any) {
+    res.status(500).json({ message: error.message || "Internal server error" });
+  }
 };
 
 export const deleteProduct = async (req: Request, res: Response) => {
@@ -65,7 +67,9 @@ export const deleteProduct = async (req: Request, res: Response) => {
       return res.status(403).json({ message: "not owner" });
     await product.deleteProduct();
     res.status(201).json("deleted");
-  } catch (error) {}
+  } catch (error: any) {
+    res.status(500).json({ message: error.message || "Internal server error" });
+  }
 };
 
 export const getAllProducts = async (req: Request, res: Response) => {
@@ -74,6 +78,6 @@ export const getAllProducts = async (req: Request, res: Response) => {
     let products = await ins.getAllProducts();
     res.status(201).json({ products });
   } catch (error: any) {
-    console.log(error);
+    res.status(500).json({ message: error.message || "Internal server error" });
   }
 };

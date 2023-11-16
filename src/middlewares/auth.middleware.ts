@@ -27,7 +27,9 @@ export const login = async (req: Request, res: Response) => {
       }
     } finally {
     }
-  } catch (error) {}
+  } catch (error: any) {
+    res.status(500).json({ message: error.message || "Internal server error" });
+  }
 };
 
 export const register = async (req: Request, res: Response) => {
@@ -45,6 +47,6 @@ export const register = async (req: Request, res: Response) => {
     await user.register();
     res.status(201).json({ message: "User registered successfully" });
   } catch (error: any) {
-    res.status(500).json({ message: "Internal server error", error });
+    res.status(500).json({ message: error.message || "Internal server error" });
   }
 };

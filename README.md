@@ -13,9 +13,15 @@
 
 APIS :
 register : localhost:3000/auth/register
+
 login : localhost:3000/auth/login
+
 addProduct : localhost:3000/products/addProduct  (JWT PROTECTED)
+
 viewProductsOfUser : localhost:3000/products/viewProducts  (JWT PROTECTED)
+
 editProduct : localhost:3000/products/editProduct  (JWT PROTECTED)
+
 deleteProduct : localhost:3000/products/deleteProduct  (JWT PROTECTED)
+
 listAllProducts : localhost:3000/products/getAllProducts  (JWT PROTECTED)
